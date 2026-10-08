@@ -1,0 +1,7 @@
+# Noeticar
+> Open-source code-intelligence platform built on Claude by Anthropic.
+
+Noeticar runs 20 static analyzers (ruff, mypy, bandit, semgrep, trivy and more), merges their results into one 0-100 quality gate, and uses the Claude API (Claude Sonnet 5.5 by default) to review every scan as a "second opinion": it agrees with, disputes, adds and re-prioritises findings, returning structured JSON. A router sends cheap triage to Claude Haiku 5.5 and deep reviews to Claude Opus 5.5. The same capabilities are exposed to Claude Code as 44 MCP tools.
+
+- Source: https://github.com/Aminatorex/noeticar (MIT)
+- Contact: hello@noeticar.com

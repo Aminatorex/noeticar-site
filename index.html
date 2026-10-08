@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noeticar — code intelligence built on Claude</title>
+<meta name="description" content="Noeticar runs 20 static analyzers, merges them into one quality gate, and has Claude by Anthropic review every scan as a second opinion. 44 MCP tools for Claude Code. Open source, MIT.">
+<meta property="og:title" content="Noeticar — code intelligence built on Claude">
+<meta property="og:description" content="20 analyzers, one quality gate, a Claude second-opinion review, and 44 MCP tools for Claude Code.">
+<meta property="og:url" content="https://noeticar.com/">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Noeticar","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS, Windows","license":"https://opensource.org/licenses/MIT","url":"https://noeticar.com/","codeRepository":"https://github.com/Aminatorex/noeticar","description":"Code-intelligence platform built on Claude by Anthropic: 20 static analyzers, a unified quality gate, a Claude second-opinion review and 44 MCP tools for Claude Code.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+:root{--ink:#14161a;--muted:#5d6370;--line:#dcdfe5;--paper:#f6f5f1;--card:#fff;--acc:#c2410c;--ok:#15803d;--bad:#b91c1c;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 "Space Grotesk",system-ui,sans-serif}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(246,245,241,.92);backdrop-filter:saturate(1.2);z-index:5}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:700;letter-spacing:-.02em;text-decoration:none;display:flex;gap:10px;align-items:center}
+.logo b{width:22px;height:22px;border:2px solid var(--ink);display:inline-grid;place-items:center;font:600 12px var(--mono)}
+nav a{margin-left:22px;text-decoration:none;color:var(--muted);font-size:15px}nav a:hover{color:var(--ink)}
+.btn{display:inline-block;padding:11px 18px;border:2px solid var(--ink);text-decoration:none;font-weight:500;background:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;padding:72px 24px 64px;align-items:start}
+.hero>*{min-width:0}
+.kicker{font:600 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+h1{font-size:52px;line-height:1.04;letter-spacing:-.035em;margin:14px 0 18px}
+h2{font-size:34px;line-height:1.1;letter-spacing:-.025em;margin:0 0 14px}
+.lede{color:var(--muted);font-size:19px;max-width:34em}
+.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.term{background:#111317;color:#d7dae0;font:12.5px/1.65 var(--mono);padding:20px 22px;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);overflow:auto;margin:0 8px 0 0}
+.term .c{color:#7d8592}.term .p{color:#f59e0b}.term .g{color:#4ade80}.term .r{color:#f87171}.term .y{color:#fbbf24}.term .b{color:#93c5fd}
+section{padding:72px 0;border-top:1px solid var(--line)}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);background:var(--card)}
+.facts div{padding:22px;border-right:1px solid var(--line)}.facts div:last-child{border-right:0}
+.facts strong{display:block;font:600 30px var(--mono);letter-spacing:-.03em}.facts span{color:var(--muted);font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink);background:var(--card);margin-top:28px}
+.flow > div{padding:26px;border-right:1px solid var(--line)}.flow > div:last-child{border-right:0}
+.flow .n{font:600 12px var(--mono);color:var(--acc)}
+.flow h3{margin:6px 0 8px;font-size:20px}.flow p{margin:0;color:var(--muted);font-size:15.5px}
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:start}
+.verdicts{border:2px solid var(--ink);background:var(--card)}
+.v{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.v:last-child{border-bottom:0}
+.tag{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:3px 0}
+.tag.ok{color:var(--ok)}.tag.no{color:var(--bad)}.tag.miss{color:var(--acc)}.tag.up{color:#1d4ed8}
+.v code,.inline{font:13px var(--mono);background:#eef0f3;padding:1px 5px}
+ul.clean{list-style:none;padding:0;margin:18px 0 0}ul.clean li{padding:10px 0;border-bottom:1px dashed var(--line)}
+ul.clean li b{font-family:var(--mono);font-size:14px;font-weight:600}
+.tools{columns:3;column-gap:28px;font:13.5px/2 var(--mono);margin-top:24px;color:#333}
+.models{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--ink);background:var(--card);margin-top:28px}
+.models div{padding:22px;border-right:1px solid var(--line)}.models div:last-child{border-right:0}
+.models h3{margin:0 0 4px;font-size:18px}.models code{font:12.5px var(--mono);color:var(--acc)}.models p{color:var(--muted);font-size:15px;margin:8px 0 0}
+details{border-bottom:1px solid var(--line);padding:16px 0}summary{cursor:pointer;font-weight:500;font-size:18px;list-style:none}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";float:right;font-family:var(--mono)}details[open] summary::after{content:"−"}
+details p{color:var(--muted);margin:10px 0 0;max-width:46em}
+footer{border-top:2px solid var(--ink);padding:36px 0;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+@media (max-width:900px){.hero,.split{grid-template-columns:1fr}.facts{grid-template-columns:repeat(2,1fr)}.facts div:nth-child(2){border-right:0}.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}.flow,.models{grid-template-columns:1fr}.flow>div,.models div{border-right:0;border-bottom:1px solid var(--line)}.tools{columns:2}h1{font-size:40px}nav a:not(.keep){display:none}}
+@media (max-width:620px){.term{box-shadow:5px 5px 0 var(--ink);font-size:11px;margin-right:5px;white-space:pre}.tools{columns:1}.v{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#"><b>N</b>Noeticar</a>
+  <nav><a href="#how">How it works</a><a href="#claude">Built on Claude</a><a href="#mcp">MCP tools</a><a class="keep" href="https://github.com/Aminatorex/noeticar">GitHub</a></nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <div class="kicker">Open source · Built on Claude</div>
+    <h1>Twenty analyzers.<br>One gate.<br>Claude reads the verdict.</h1>
+    <p class="lede">Noeticar runs ruff, mypy, bandit, semgrep, trivy and 15 more analyzers, merges them into a single 0–100 quality score, then asks Claude to review the result like a senior engineer: what's real, what's noise, and what the tools missed.</p>
+    <div class="cta"><a class="btn" href="https://github.com/Aminatorex/noeticar">View on GitHub</a><a class="btn ghost" href="#claude">How Claude is used</a></div>
+  </div>
+  <pre class="term" aria-label="Example terminal session"><span class="c"># scan + Claude second opinion</span>
+<span class="p">$</span> noeticar scan . --second-opinion
+  ruff ✓  mypy ✓  bandit ✓  semgrep ✓  radon ✓  +15
+  score <span class="y">78/100</span>   gate <span class="r">FAIL</span> (threshold 85)
+  41 findings · 3 high · 12 medium
+
+<span class="b">claude-sonnet-5-5 · second opinion</span>
+  <span class="g">agree</span>     B608 SQL built with f-string  api/search.py:88
+  <span class="r">dispute</span>   B105 "token" is a constant name, not a secret
+  <span class="y">missed</span>    retry loop never backs off  queue.py:142
+  <span class="b">reorder</span>   fix B608 first — it is user-reachable
+  confidence 0.82 · 31.4k in / 1.9k out tokens</pre>
+</div>
+
+<div class="wrap" style="padding-bottom:64px">
+  <div class="facts">
+    <div><strong>20</strong><span>static-analysis runners</span></div>
+    <div><strong>44</strong><span>MCP tools for Claude Code</span></div>
+    <div><strong>1,700+</strong><span>unit tests</span></div>
+    <div><strong>MIT</strong><span>open source, self-hosted</span></div>
+  </div>
+</div>
+
+<section id="how"><div class="wrap">
+  <div class="kicker">How it works</div>
+  <h2>Analyzers find candidates. Claude decides what matters.</h2>
+  <p class="lede">Static analysis is precise but noisy; LLM review is flexible but needs grounding. Noeticar gives Claude the structured scan, code snippets and your team's knowledge base, and asks for a verdict it can defend.</p>
+  <div class="flow">
+    <div><div class="n">01 · SCAN</div><h3>Run every analyzer once</h3><p>UCC orchestrates 20 runners in parallel, normalises severities and produces one score, SARIF and an SBOM.</p></div>
+    <div><div class="n">02 · REVIEW</div><h3>Claude second opinion</h3><p>Claude Sonnet 5.5 agrees, disputes, adds missed issues and re-ranks priorities, returned as strict JSON with a confidence value.</p></div>
+    <div><div class="n">03 · LEARN</div><h3>Remember the decisions</h3><p>GloryStory, a local knowledge base, stores accepted and rejected findings so the next review starts from your team's history.</p></div>
+  </div>
+</div></section>
+
+<section id="claude"><div class="wrap split">
+  <div>
+    <div class="kicker">Built on Claude</div>
+    <h2>Why Claude does the reviewing</h2>
+    <p class="lede">Noeticar is built on Claude by Anthropic. The Claude API is the default provider, and the MCP server is designed for Claude Code.</p>
+    <ul class="clean">
+      <li><b>Long context.</b> A whole scan, the relevant snippets and prior KB decisions fit in a single request, so the review sees the full picture.</li>
+      <li><b>Reasoning you can audit.</b> Every dispute carries a reason and a suggested severity; nothing is silently dropped.</li>
+      <li><b>Cost routing.</b> The Plano router sends cheap triage to Haiku 5.5 and deep reviews to Opus 5.5, based on hotspot, impact and diff-size signals.</li>
+    </ul>
+  </div>
+  <div class="verdicts" aria-label="Example Claude verdicts">
+    <div class="v"><span class="tag ok">Agree</span><span><code>B608</code> Query string built with an f-string reaches <code>cursor.execute</code> from a request parameter.</span></div>
+    <div class="v"><span class="tag no">Dispute</span><span><code>B105</code> <code>TOKEN_HEADER = "X-Token"</code> is a header name, not a credential. Suggest: info.</span></div>
+    <div class="v"><span class="tag miss">Missed</span><span>Retry loop in <code>queue.py</code> has no backoff or cap; under an outage it hammers the broker.</span></div>
+    <div class="v"><span class="tag up">Reorder</span><span>Fix the SQL issue before the 9 typing errors: it's the only finding reachable from user input.</span></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Model routing</div>
+  <h2>The right Claude model for each job</h2>
+  <div class="models">
+    <div><h3>Triage</h3><code>claude-haiku-5-5</code><p>Small diffs and low-impact changes: fast, cheap first pass.</p></div>
+    <div><h3>Review</h3><code>claude-sonnet-5-5</code><p>Default second opinion for every scan.</p></div>
+    <div><h3>Deep dive</h3><code>claude-opus-5-5</code><p>Hotspot files and high blast-radius changes.</p></div>
+  </div>
+</div></section>
+
+<section id="mcp"><div class="wrap">
+  <div class="kicker">MCP server</div>
+  <h2>44 tools your Claude Code agent can call</h2>
+  <p class="lede">Connect once with <span class="inline">claude mcp add noeticar -- noeticar-mcp</span>. Your agent can scan before committing, check the gate, look up past decisions and ask for a second opinion without leaving the session.</p>
+  <div class="tools">
+    noeticar_scan<br>noeticar_gate<br>noeticar_fix<br>noeticar_dimensions<br>noeticar_sbom<br>noeticar_second_opinion<br>noeticar_analyze<br>noeticar_hotspots<br>noeticar_impact<br>noeticar_dora_metrics<br>noeticar_health<br>noeticar_workspace_health<br>noeticar_kb_search<br>noeticar_kb_add<br>noeticar_kb_link<br>noeticar_scan_and_learn<br>noeticar_scan_changed_and_explain<br>noeticar_unified_search<br>noeticar_semantic_search<br>noeticar_plano_route<br>noeticar_plano_budget<br>noeticar_plano_guardrails<br>noeticar_baseline<br>noeticar_policy_packs<br>… and 20 more
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="kicker">Questions</div>
+  <h2>FAQ</h2>
+  <details><summary>Which AI model does Noeticar use?</summary><p>Noeticar is built on Claude by Anthropic. The second-opinion review defaults to Claude Sonnet 5.5 through the Claude API, and the router can use Claude Haiku 5.5 and Claude Opus 5.5. Local models through Ollama are supported for air-gapped setups.</p></details>
+  <details><summary>Does my code leave my machine?</summary><p>The analyzers run locally. Only the scan summary and the snippets you allow in <span class="inline">[second_opinion.scope]</span> are sent to the Claude API, and you can cap the context size.</p></details>
+  <details><summary>Does Claude change my code?</summary><p>No. Claude produces a review; fixes come from deterministic auto-fixers (e.g. ruff) or from your own agent, and the quality gate stays the source of truth.</p></details>
+  <details><summary>Is it free?</summary><p>Yes, MIT-licensed and self-hosted. You bring your own Anthropic API key for the Claude review.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Noeticar · MIT · <a href="mailto:hello@noeticar.com">hello@noeticar.com</a></span>
+  <span>Built on Claude. Claude is a trademark of Anthropic, PBC. Noeticar is not affiliated with Anthropic.</span>
+</div></footer>
+</body>
+</html>
